@@ -95,7 +95,7 @@ int main(void)
   OLED_Clear();
 
   OLED_ShowString(1, 1, "Freq: 1000Hz");
-  OLED_ShowString(2, 1, "Duty: 50%");
+  OLED_ShowString(2, 1, "Duty: 30%");
   OLED_ShowString(3, 1, "F_detc: xxxxHz");
 
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
