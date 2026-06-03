@@ -216,7 +216,7 @@ void EXTI9_5_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-uint32_t Get_PWM_Count(void);
+uint32_t Get_PWM_Count(void)
 {
   uint32_t temp = PWM_Count; 
   PWM_Count = 0;

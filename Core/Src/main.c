@@ -25,6 +25,7 @@
 /* USER CODE BEGIN Includes */
 #include "OLED.h"
 #include <stdint.h>
+#include "stm32f1xx_it.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,7 +46,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint32_t i=0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -95,6 +96,7 @@ int main(void)
 
   OLED_ShowString(1, 1, "Freq: 1000Hz");
   OLED_ShowString(2, 1, "Duty: 50%");
+  OLED_ShowString(3, 1, "F_detc: xxxxHz");
 
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 
@@ -104,8 +106,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    OLED_ShowNum(4, 1, Get_PWM_Count(), 8)
-    HAL_Delay(100);
+    OLED_ShowNum(3, 9, Get_PWM_Count(), 4);
+    HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

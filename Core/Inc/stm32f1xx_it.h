@@ -57,6 +57,7 @@ void PendSV_Handler(void);
 void SysTick_Handler(void);
 void EXTI9_5_IRQHandler(void);
 /* USER CODE BEGIN EFP */
+
 uint32_t Get_PWM_Count(void);
 
 /* USER CODE END EFP */
