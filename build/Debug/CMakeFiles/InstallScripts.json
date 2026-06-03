@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"D:/Electronics/HAL_Projects/HAL_7_EXTIReadingPWM/build/Debug/cmake_install.cmake",
+		"D:/Electronics/HAL_Projects/HAL_7_EXTIReadingPWM/build/Debug/cmake/stm32cubemx/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
