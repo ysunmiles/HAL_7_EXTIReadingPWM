@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "stm32f1xx_hal_tim.h"
 #include "tim.h"
 #include "gpio.h"
 
@@ -34,7 +33,6 @@
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
-#define TIM3_INPUT_CLOCK_HZ 1000000U
 /* USER CODE BEGIN PD */
 
 /* USER CODE END PD */
@@ -47,11 +45,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-volatile uint32_t capture_period = 0;
-volatile uint32_t capture_high = 0;
-volatile uint8_t capture_ready = 0;
-volatile uint32_t measured_freq = 0;
-volatile uint32_t measured_duty = 0;
+uint32_t i=0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -95,13 +89,12 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM2_Init();
-  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   OLED_Init();
   OLED_Clear();
 
-  OLED_ShowString(1, 1, "Freq:    Hz");
-  OLED_ShowString(2, 1, "Duty:   %");
+  OLED_ShowString(1, 1, "Freq: 1000Hz");
+  OLED_ShowString(2, 1, "Duty: 50%");
 
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 
@@ -111,24 +104,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    if (capture_ready)
-    {
-      capture_ready = 0;
-      if (capture_period != 0)
-      {
-        measured_freq = TIM3_INPUT_CLOCK_HZ / capture_period;
-        measured_duty = (capture_high * 100U + capture_period / 2U) / capture_period;
-      }
-      else
-      {
-        measured_freq = 0;
-        measured_duty = 0;
-      }
-
-      OLED_ShowNum(1, 6, measured_freq, 4);
-      OLED_ShowNum(2, 6, measured_duty, 3);
-    }
-
+    HAL_Delay(100);
+    i ++;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -183,23 +160,6 @@ void SystemClock_Config(void)
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
-void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
-{
-  if (htim->Instance == TIM3)
-  {
-    uint32_t cc1 = __HAL_TIM_GET_FLAG(htim, TIM_FLAG_CC1);
-    if (cc1 != RESET)
-    {
-      capture_period = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-      capture_high = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_2);
-      if (capture_period != 0)
-      {
-        capture_ready = 1;
-      }
-    }
-  }
-}
-
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
