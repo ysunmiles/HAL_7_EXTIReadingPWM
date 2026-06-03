@@ -104,8 +104,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    OLED_ShowNum(4, 1, Get_PWM_Count(), 8)
     HAL_Delay(100);
-    i ++;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
